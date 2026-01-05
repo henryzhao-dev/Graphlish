@@ -30,14 +30,6 @@ class GraphlishProjectApplicationTests {
 
     }
 
-    @Test
-    public void test1(){
 
-        ImageStorageService service = new ImageStorageServiceImpl();
-
-        String image = service.acquireImage("https://images.unsplash.com/photo-1630563451961-ac2ff27616ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDYwNTN8MHwxfHNlYXJjaHwxfHxhcHBsZXxlbnwwfHx8fDE3NjcwOTgzNDF8MA&ixlib=rb-4.1.0&q=80&w=1080","apple");
-
-        System.out.println(image);
-    }
 
 }
