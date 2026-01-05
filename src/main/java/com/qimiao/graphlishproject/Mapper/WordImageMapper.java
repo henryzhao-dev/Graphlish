@@ -26,5 +26,4 @@ public interface WordImageMapper {
     void insert(WordImage wordImage);
 
 
-
 }
