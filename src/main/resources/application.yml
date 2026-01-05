@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: Graphlish-Project
+
+  #配置数据库连接信息
+  datasource:
+    url: jdbc:mysql://localhost:3306/Graphlish
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 1234
+
+
+mybatis:
+  configuration:
+    #开启mybatis日志输出
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #    开启驼峰命名映射
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.qimiao.graphlishproject.Entity
+
+#r2:
+#  endpoint: https://4d13b2f81824bec182e3971a0b7bbc44.r2.cloudflarestorage.com/graphlish
+#  access-key: "aab6e98ea7a59c030c6f6edd65e38c63"
+#  secret-key: "c059e1402ba31a86c09bc32a9fe045f5ae57e1c8bb2065bd54641b1d2df82714"
+#  bucket: "graphlish"
+
+r2:
+  public-domain: https://pub-b5b07718c7094cb5acd1636d976a5ab7.r2.dev
