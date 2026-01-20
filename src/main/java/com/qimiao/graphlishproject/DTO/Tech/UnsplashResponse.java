@@ -1,8 +1,7 @@
-package com.qimiao.graphlishproject.DTO;
+package com.qimiao.graphlishproject.DTO.Tech;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.xml.transform.Result;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)

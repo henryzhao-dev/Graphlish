@@ -1,7 +1,8 @@
 package com.qimiao.graphlishproject.Service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.qimiao.graphlishproject.DTO.UnsplashResponse;
+import com.qimiao.graphlishproject.Config.UnsplashProperties;
+import com.qimiao.graphlishproject.DTO.Tech.UnsplashResponse;
 import com.qimiao.graphlishproject.Service.Interface.ImageSearchService;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -12,19 +13,28 @@ import java.util.List;
 @Service
 public class UnsplashImageSearchServiceImpl implements ImageSearchService {
 
-    private static final String ACCESS_KEY = "4deg9qacExLKpruBjKmdBDj5s5BVJJFT2yr7T2O_9fU";
-    private static final String API_URL = "https://api.unsplash.com/search/photos";
+//    private static final String ACCESS_KEY = "4deg9qacExLKpruBjKmdBDj5s5BVJJFT2yr7T2O_9fU";
+//    private static final String API_URL = "https://api.unsplash.com/search/photos";
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
+    private final UnsplashProperties unsplashProperties;
+
+    public UnsplashImageSearchServiceImpl(UnsplashProperties unsplashProperties) {
+        this.unsplashProperties = unsplashProperties;
+    }
 
 
     @Override
     public List<String> searchImages(String keyword) {
 
-        String url = API_URL +
+        String apiUrl = unsplashProperties.getApiUrl();
+        String accessKey = unsplashProperties.getAccessKey();
+
+
+        String url = apiUrl +
                 "?query=" + keyword +
                 "&per_page=3" +
-                "&client_id=" + ACCESS_KEY;
+                "&client_id=" + accessKey;
 
         try {
 

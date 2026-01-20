@@ -19,11 +19,21 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.qimiao.graphlishproject.Entity
 
-#r2:
-#  endpoint: https://4d13b2f81824bec182e3971a0b7bbc44.r2.cloudflarestorage.com/graphlish
-#  access-key: "aab6e98ea7a59c030c6f6edd65e38c63"
-#  secret-key: "c059e1402ba31a86c09bc32a9fe045f5ae57e1c8bb2065bd54641b1d2df82714"
-#  bucket: "graphlish"
 
 r2:
+  endpoint: https://4d13b2f81824bec182e3971a0b7bbc44.r2.cloudflarestorage.com
+  access-key: ${R2_ACCESS_KEY}
+  secret-key: ${R2_SECRET_KEY}
+  region: us-east-1
+  bucket-name: graphlish
   public-domain: https://pub-b5b07718c7094cb5acd1636d976a5ab7.r2.dev
+
+zhipu:
+  ai:
+    endpoint: https://open.bigmodel.cn/api/paas/v4/chat/completions
+    api-key: ${ZHIPU_API_KEY}
+#    model: ${ZHIPU_AI_MODEL}
+
+unsplash:
+  access-key: ${UNSPLASH_ACCESS_KEY}
+  api-url: https://api.unsplash.com/search/photos

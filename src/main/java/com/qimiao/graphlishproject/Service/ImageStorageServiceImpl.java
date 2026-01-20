@@ -1,7 +1,8 @@
 package com.qimiao.graphlishproject.Service;
 
-import com.qimiao.graphlishproject.Config.R2ClientFactory;
+import com.qimiao.graphlishproject.Config.R2Properties;
 import com.qimiao.graphlishproject.Service.Interface.ImageStorageService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import software.amazon.awssdk.core.sync.RequestBody;
@@ -14,9 +15,15 @@ import java.util.UUID;
 public class ImageStorageServiceImpl implements ImageStorageService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final S3Client s3Client = R2ClientFactory.create();
 
-    private static final String BUCKET_NAME = "graphlish";
+    private final S3Client s3Client;
+    private final R2Properties r2Properties;
+
+    public  ImageStorageServiceImpl(S3Client s3Client, R2Properties r2Properties) {
+        this.s3Client = s3Client;
+        this.r2Properties = r2Properties;
+    }
+
 
 
     @Override
@@ -32,8 +39,9 @@ public class ImageStorageServiceImpl implements ImageStorageService {
         String imagePath = buildImagePath(word);
 
         //upload to R2
+        String bucketName = r2Properties.getBucketName();
         PutObjectRequest request = PutObjectRequest.builder()
-                .bucket(BUCKET_NAME)
+                .bucket(bucketName)
                 .key(imagePath)
                 .contentType("image/jpeg")
                 .build();
