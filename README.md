@@ -41,3 +41,27 @@ Tech Stack
 	•	Cloud Storage: Cloudflare R2
 	•	AI Integration: External AI APIs
 	•	Architecture: RESTful APIs, layered backend design
+
+## Configuration
+
+This project uses environment variables to manage sensitive credentials.
+
+Required environment variables:
+
+- R2_ENDPOINT
+- R2_ACCESS_KEY
+- R2_SECRET_KEY
+- R2_PUBLIC_DOMAIN
+- UNSPLASH_ACCESS_KEY
+- ZHIPU_API_KEY
+
+Example:
+
+```bash
+export R2_ENDPOINT=...
+export R2_ACCESS_KEY=...
+export R2_SECRET_KEY=...
+export R2_PUBLIC_DOMAIN=...
+
+export UNSPLASH_ACCESS_KEY=...
+export ZHIPU_API_KEY=...

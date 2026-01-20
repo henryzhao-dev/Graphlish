@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 /src/main/java/com/qimiao/graphlishproject/Service/ImageAcquireServiceImpl.java
+
+### test file ###
+/src/main/java/com/qimiao/graphlishproject/Controller/ImageController.java
+/src/main/java/com/qimiao/graphlishproject/Controller/Controllertest.java
+/src/test/java/com/qimiao/graphlishproject/GraphlishprojectApplicationTests.java
