@@ -13,8 +13,7 @@ import java.util.List;
 @Service
 public class UnsplashImageSearchServiceImpl implements ImageSearchService {
 
-//    private static final String ACCESS_KEY = "4deg9qacExLKpruBjKmdBDj5s5BVJJFT2yr7T2O_9fU";
-//    private static final String API_URL = "https://api.unsplash.com/search/photos";
+
     private final RestTemplate restTemplate = new RestTemplate();
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final UnsplashProperties unsplashProperties;
