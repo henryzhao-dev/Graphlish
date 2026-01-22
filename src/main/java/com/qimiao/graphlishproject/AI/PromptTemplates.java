@@ -27,18 +27,42 @@ public class PromptTemplates {
 
 
     //generate more accessible descriptions based on existing explanations
-    public static String simplifyExplanation(String explanation) {
+//    public static String simplifyExplanation(String originalExplanation) {
+//        return """
+//        You are teaching a beginner.
+//
+//        The following is a dictionary-style explanation:
+//
+//        %s
+//
+//        Please explain it again in a much simpler and more intuitive way,
+//        using very easy words and an analogy if possible.
+//        """.formatted(originalExplanation);
+//    }
+
+    //generate more accessible descriptions based on existing explanations
+    public static String simplifyExplanation(String originalExplanation) {
         return """
-        You are teaching a beginner.
-
-        The following is a dictionary-style explanation:
-
-        %s
-
-        Please explain it again in a much simpler and more intuitive way,
-        using very easy words and an analogy if possible.
-        """.formatted(explanation);
+                You are helping a learner who already saw an explanation but still didn’t understand it.
+        
+                Task:
+                Rewrite the explanation below in a MUCH simpler way.
+        
+                Rules:
+                - Use ONE short paragraph only.
+                - Do NOT use headings, bullet points, or lists.
+                - Do NOT add new examples or analogies.
+                - Use very simple words and short sentences.
+                - Keep it under 60 words.
+        
+                Rewrite this explanation:
+                %s
+        """.formatted(originalExplanation);
+        // Note: reExplain prompt is intentionally constrained
+        // to reduce latency and avoid over-explanation
     }
+
+
 
 
 

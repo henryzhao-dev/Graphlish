@@ -13,6 +13,8 @@ import com.qimiao.graphlishproject.Mapper.WordMapper;
 import com.qimiao.graphlishproject.Service.Interface.ImageSearchService;
 import com.qimiao.graphlishproject.Service.Interface.ImageStorageService;
 import com.qimiao.graphlishproject.Service.Interface.ImageUrlResolver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +23,8 @@ import java.util.List;
 
 @Service
 public class WordService {
+
+    private static final Logger log = LoggerFactory.getLogger(WordService.class);
 
     //dependency inject
     private final ImageSearchService imageSearchService;
@@ -262,6 +266,34 @@ public class WordService {
         int s = text.indexOf(start);
         if (s == -1) return "";
         return text.substring(s + start.length());
+    }
+
+    public String reExplain(String word) {
+
+        String normalizedWord = normalize(word);
+        if (normalizedWord.isBlank()) {
+            return "No explanation available for re-explain.";
+        }
+
+        try {
+            Word dbWord = wordMapper.queryByText(normalizedWord);
+            if (dbWord == null) {
+                return "No explanation available for re-explain.";
+            }
+
+            WordExplanation dbExplanation = wordExplanationMapper.queryByWordId(dbWord.getId());
+            if (dbExplanation == null ||
+                    dbExplanation.getExplanation() == null || dbExplanation.getExplanation().isBlank()) {
+                return "No explanation available for re-explain.";
+            }
+
+            return aiProvider.reExplain(dbExplanation.getExplanation());
+
+        } catch (Exception e) {
+            log.error("reExplain service failed for word={}", word, e);
+            return "AI re-explanation is temporarily unavailable";
+        }
+
     }
 
 

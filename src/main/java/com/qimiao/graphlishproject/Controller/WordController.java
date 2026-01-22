@@ -25,4 +25,9 @@ public class WordController {
 
     }
 
+    @GetMapping("/reExplain")
+    public String reExplain(@RequestParam String word) {
+        return wordService.reExplain(word);
+    }
+
 }

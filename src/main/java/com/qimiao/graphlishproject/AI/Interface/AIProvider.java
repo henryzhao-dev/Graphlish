@@ -5,6 +5,7 @@ public interface AIProvider {
     //explain word
     String explainWord(String word);
 
+    //reexplain word
     String reExplain(String explanation);
 
 

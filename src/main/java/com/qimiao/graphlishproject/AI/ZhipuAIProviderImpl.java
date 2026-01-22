@@ -2,6 +2,8 @@ package com.qimiao.graphlishproject.AI;
 
 import com.qimiao.graphlishproject.AI.Interface.AIProvider;
 import com.qimiao.graphlishproject.Config.ZhipuAIProperties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -14,6 +16,8 @@ import java.time.Duration;
 
 @Service
 public class ZhipuAIProviderImpl implements AIProvider {
+
+    private static final Logger log = LoggerFactory.getLogger(ZhipuAIProviderImpl.class);
 
     private final HttpClient httpClient;
     private final ZhipuAIProperties zhipuAIProperties;
@@ -43,17 +47,31 @@ public class ZhipuAIProviderImpl implements AIProvider {
 
     //explain word again
     @Override
-    public String reExplain(String explanation) {
+    public String reExplain(String originalExplanation) {
 
-        String prompt = PromptTemplates.simplifyExplanation(explanation);
+        if (originalExplanation == null || originalExplanation.isBlank()) {
+            return "No explanation available for re-explain.";
+        }
 
-        String responseJson = callZhipuAI(prompt);
+        String prompt = PromptTemplates.simplifyExplanation(originalExplanation);
 
-        return ZhipuResponseParser.extractContent(responseJson);
+        try {
+            String responseJson = callZhipuAI(prompt);
+            String content = ZhipuResponseParser.extractContent(responseJson);
+
+            return content == null
+                    ? "AI re-explanation is temporarily unavailable."
+                    : content.trim();
+
+        } catch (Exception e) {
+            log.error("Zhipu reExplain failed", e);
+            return "AI re-explanation is temporarily unavailable.";
+        }
 
 
     }
 
+    //pass in prompt and return AI result
     private String callZhipuAI(String prompt)  {
 
         String requestBody = """
